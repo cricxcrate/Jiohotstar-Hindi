@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>CricxCrate – JioHotstar Hindi Live</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
 
 <style>
 *{box-sizing:border-box}
@@ -100,7 +101,6 @@ iframe {
 }
 .banner img{width:36px}
 
-/* POPUP */
 .popup{
   position:fixed;
   inset:0;
@@ -157,9 +157,11 @@ iframe {
 
   <div class="player-wrap">
     <iframe 
-      src="https://allrounderfuvk.pages.dev/dilz?id=Amrit098" 
+      src="https://allroundersd.pages.dev/hotstar" 
+      id="mainFrame"
       allowfullscreen 
-      sandbox="allow-forms allow-pointer-lock allow-same-origin allow-scripts allow-top-navigation"
+      referrerpolicy="no-referrer"
+      sandbox="allow-scripts allow-same-origin allow-forms"
     ></iframe>
   </div>
 
@@ -187,14 +189,11 @@ iframe {
 /* HIT COUNTER LOGIC */
 async function recordHit() {
   try {
-    // Key updated to jiohotstar
     await fetch("https://dillzycounter.vercel.app/api/hit?key=jiohotstar");
-    console.log("Hit recorded for JioHotstar Hindi");
   } catch (e) {
-    console.error("Counter error:", e);
+    console.error("Counter error");
   }
 }
-
 document.addEventListener('DOMContentLoaded', recordHit);
 
 /* UI LOGIC */
@@ -216,15 +215,20 @@ function closePopup(){
   setTimeout(()=>{
     popup.style.display="none";
     document.body.classList.remove("popup-active");
-    sessionStorage.setItem("joined","yes");
+    sessionStorage.setItem("joined_jio","yes");
   },300);
 }
 
-if(sessionStorage.getItem("joined")!=="yes"){
+if(sessionStorage.getItem("joined_jio")!=="yes"){
   document.body.classList.add("popup-active");
 }else{
   popup.style.display="none";
 }
+
+/* 🛡️ ANTI-REDIRECT SHIELD */
+window.onbeforeunload = function() {
+    return "Are you sure you want to leave?"; // Only triggers if ad tries to hijack the tab
+};
 </script>
 
 </body>
