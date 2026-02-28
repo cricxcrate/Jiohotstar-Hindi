@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>CricxCrate – JioHotstar Hindi Live</title>
+<title>CricxCrate – Star Sports 2HD</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
 
@@ -76,16 +76,15 @@ iframe {
   cursor:pointer;
   text-decoration:none;
   box-shadow:0 6px 14px rgba(0,0,0,.08);
+  transition: transform 0.2s ease;
 }
 .btn.primary{
   background:#00a8e1;
   color:#fff;
   border:none;
 }
-.btn:active,
-.popup-box a:active,
-.popup-box button:active{
-  transform:scale(.96);
+.btn:active{
+  transform:scale(.95);
 }
 .banner{
   max-width:950px;
@@ -101,6 +100,7 @@ iframe {
 }
 .banner img{width:36px}
 
+/* POPUP */
 .popup{
   position:fixed;
   inset:0;
@@ -153,16 +153,15 @@ iframe {
 </div>
 
 <div class="main-content">
-  <div class="top-bar glass">CricxCrate • JioHotstar Hindi</div>
+  <div class="top-bar glass">CricxCrate • Star Sports 2HD</div>
 
   <div class="player-wrap">
-    <iframe 
-      src="https://allroundersd.pages.dev/hotstar" 
-      id="mainFrame"
-      allowfullscreen 
-      referrerpolicy="no-referrer"
-      sandbox="allow-scripts allow-same-origin allow-forms"
-    ></iframe>
+    <iframe id="video-player"
+            src="https://jiogo.pages.dev/?id=1109" 
+            referrerpolicy="no-referrer"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-presentation" 
+            allow="autoplay; encrypted-media; fullscreen" 
+            allowfullscreen></iframe>
   </div>
 
   <div class="section glass">
@@ -175,6 +174,7 @@ iframe {
     <h3>❤️ Share & Support</h3>
     <button class="btn primary" onclick="sharePage()">Share</button>
     <button class="btn" onclick="copyLink()">Copy Link</button>
+    <button class="btn" onclick="refreshPlayer()">Refresh Stream</button>
   </div>
 
   <a href="Https://t.me/+t991_pRD-zs5NzY1" target="_blank" style="text-decoration:none;color:inherit">
@@ -186,16 +186,6 @@ iframe {
 </div>
 
 <script>
-/* HIT COUNTER LOGIC */
-async function recordHit() {
-  try {
-    await fetch("https://dillzycounter.vercel.app/api/hit?key=jiohotstar");
-  } catch (e) {
-    console.error("Counter error");
-  }
-}
-document.addEventListener('DOMContentLoaded', recordHit);
-
 /* UI LOGIC */
 const popup = document.getElementById("popup");
 
@@ -206,8 +196,18 @@ function copyLink(){
 
 function sharePage(){
   if(navigator.share){
-    navigator.share({title:"JioHotstar Hindi Live – CricxCrate", url:location.href});
+    navigator.share({
+      title: "Star Sports 2HD Live – CricxCrate", 
+      url: location.href
+    });
   }
+}
+
+function refreshPlayer() {
+  const iframe = document.getElementById('video-player');
+  const currentSrc = iframe.src;
+  iframe.src = '';
+  iframe.src = currentSrc;
 }
 
 function closePopup(){
@@ -215,19 +215,19 @@ function closePopup(){
   setTimeout(()=>{
     popup.style.display="none";
     document.body.classList.remove("popup-active");
-    sessionStorage.setItem("joined_jio","yes");
+    sessionStorage.setItem("joined_ss2hd","yes");
   },300);
 }
 
-if(sessionStorage.getItem("joined_jio")!=="yes"){
+if(sessionStorage.getItem("joined_ss2hd") !== "yes"){
   document.body.classList.add("popup-active");
-}else{
-  popup.style.display="none";
+} else {
+  popup.style.display = "none";
 }
 
-/* 🛡️ ANTI-REDIRECT SHIELD */
+/* ANTI-REDIRECT SCRIPT */
 window.onbeforeunload = function() {
-    return "Are you sure you want to leave?"; // Only triggers if ad tries to hijack the tab
+    return null; 
 };
 </script>
 
