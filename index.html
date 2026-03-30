@@ -2,20 +2,19 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>CricxCrate | Hotstar Live</title>
+<title>CricxCrate | JioHotstar Hindi</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --big-stone: #192D3C;
-  --cascade: #96AAAA;
-  --seashell: #F0F0F0;
   --premium-red: #FF3B30; 
   --bg-dark: #0A0F14; 
   --card-bg: #131B24;
   --text-dim: #94A3B8;
+  --cascade: #96AAAA;
   --border: rgba(255, 255, 255, 0.06);
+  --seashell: #F0F0F0;
 }
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -27,7 +26,7 @@ body {
   color: var(--seashell);
   display: flex;
   justify-content: center;
-  user-select: none;
+  overflow-x: hidden;
 }
 
 .app-container {
@@ -72,6 +71,18 @@ body {
   position: relative;
 }
 
+#ad-shield {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
 #stream-player { 
   position: absolute;
   top: 0;
@@ -84,20 +95,11 @@ body {
 .channel-info {
   background: var(--card-bg);
   border-radius: 20px;
-  padding: 16px;
+  padding: 18px 22px;
   display: flex;
-  align-items: center;
-  gap: 14px;
+  flex-direction: column;
+  gap: 4px;
   margin-bottom: 24px;
-  border: 1px solid var(--border);
-}
-
-.channel-logo-img {
-  width: 50px;
-  height: 50px;
-  border-radius: 12px;
-  object-fit: cover;
-  background: #1a1a1a;
   border: 1px solid var(--border);
 }
 
@@ -108,9 +110,6 @@ body {
   text-align: center;
   border: 1px solid var(--border);
 }
-
-.digg-panel h2 { font-size: 21px; margin: 0 0 8px; font-weight: 700; }
-.digg-panel p { color: var(--text-dim); font-size: 14px; margin: 0 0 24px; line-height: 1.5; }
 
 .btn-solid-red {
   background: var(--premium-red);
@@ -130,6 +129,7 @@ body {
   gap: 12px;
   margin-top: 15px;
 }
+
 .util-btn {
   background: rgba(255, 255, 255, 0.03);
   color: var(--cascade);
@@ -142,7 +142,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
 }
 
 .overlay {
@@ -155,6 +154,7 @@ body {
   justify-content: center;
   z-index: 9999;
 }
+
 .popup {
   background: var(--card-bg);
   width: 90%;
@@ -164,57 +164,41 @@ body {
   text-align: center;
   border: 1px solid var(--border);
 }
-
-.popup h2 { font-size: 30px; margin: 0; font-weight: 800; }
-.popup p { color: var(--text-dim); margin: 18px 0 30px; font-size: 15px; line-height: 1.6; }
-
-.already-joined-btn {
-  background: transparent;
-  border: 1px solid var(--border);
-  color: var(--cascade);
-  padding: 10px 24px;
-  border-radius: 100px;
-  font-size: 12px;
-  margin-top: 20px;
-  cursor: pointer;
-}
 </style>
 </head>
 <body oncontextmenu="return false">
 
 <div class="overlay" id="popup">
   <div class="popup">
-    <h2>Welcome 🦁</h2>
-    <p>Join on Telegram for live match clips, exclusive highlights & updates 📸 🚀</p>
-    <a href="https://t.me/+t991_pRD-zs5NzY1" class="btn-solid-red" target="_blank">JOIN CHANNEL</a>
-    <button class="already-joined-btn" onclick="closePopup()">I'm already joined</button>
+    <h2 style="font-size: 30px; margin: 0; font-weight: 800;">Welcome 🦁</h2>
+    <p style="color: var(--text-dim); margin: 18px 0 30px; font-size: 15px;">Join on Telegram for JioHotstar live clips & exclusive updates 🏏 🚀</p>
+    <a href="https://t.me/+jqcLfoQYt0Q1NDk1" class="btn-solid-red" target="_blank">JOIN CHANNEL</a>
+    <button style="background:transparent; border:none; color:var(--cascade); margin-top:20px; cursor:pointer;" onclick="closePopup()">I'm already joined</button>
   </div>
 </div>
 
 <div class="app-container">
   <div class="header-card">
-    <div class="brand-meta">
-      <h1>CricxCrate</h1>
-    </div>
-    <a href="https://t.me/+t991_pRD-zs5NzY1" class="join-mini" target="_blank">Join</a>
+    <div class="brand-meta"><h1>CricxCrate</h1></div>
+    <a href="https://t.me/+jqcLfoQYt0Q1NDk1" class="join-mini" target="_blank">Join</a>
   </div>
 
   <div class="video-frame" id="viewport">
+      <div id="ad-shield" onclick="killAds()">
+        <span style="background: var(--premium-red); padding: 12px 24px; border-radius: 30px; font-weight: 800; font-size: 14px; box-shadow: 0 4px 15px rgba(255,59,48,0.4);">TAP TO PLAY LIVE</span>
       </div>
+  </div>
 
   <div class="channel-info">
-    <img src="https://img.media.jio.com/tvpimages/5/6/301982_1749665314605_l_medium.jpg" alt="Hotstar Live" class="channel-logo-img">
-    <div>
-      <h3 style="margin:0; font-size:16px; font-weight: 700;">Hotstar Live</h3>
-      <p style="margin:4px 0 0; font-size:12px; color:var(--cascade);">Sports • Multilingual</p>
-    </div>
+    <h3 style="margin:0; font-size:18px; font-weight: 700;">JioHotstar</h3>
+    <p style="margin:0; font-size:13px; color:var(--cascade);">Sports • Hindi HD</p>
   </div>
 
   <div class="digg-panel">
-    <h2>Stay Updated!</h2>
-    <p>Live match clip links 🎥, rare clips 🔥 and much more — all in one place 🚀</p>
+    <h2 style="font-size: 21px; margin: 0 0 8px; font-weight: 700;">Stay Updated!</h2>
+    <p style="color: var(--text-dim); font-size: 14px; margin: 0 0 24px;">Live match clip links 🎥, rare clips 🔥 and much more — all in one place 🚀</p>
     
-    <a href="https://t.me/+t991_pRD-zs5NzY1" class="btn-solid-red" target="_blank">Join Telegram For More Links</a>
+    <a href="https://t.me/+jqcLfoQYt0Q1NDk1" class="btn-solid-red" target="_blank">Join Telegram For More Links</a>
     
     <div class="utility-row">
       <div class="util-btn" onclick="sharePage()">📤 Share</div>
@@ -222,17 +206,15 @@ body {
     </div>
   </div>
 
-  <footer style="text-align:center; font-size:13px; color:var(--text-dim); margin-top:40px; padding-bottom: 30px;">
-    Made with ❤️ 🫳🏻 Made for you<br>
-    <span style="font-weight: 700; margin-top: 10px; display: inline-block;">© CricxCrate</span>
+  <footer style="text-align:center; font-size:13px; color:var(--text-dim); margin-top:40px; padding-bottom: 30px; line-height: 2;">
+    Made with ❤️ 🤝 Made for you<br>
+    <strong>© CricxCrate</strong>
   </footer>
 </div>
 
 <script>
-/**
- * Stream URL: https://allrounder-live.pages.dev/channel/hotstar
- */
-const _0xH1 = "aHR0cHM6Ly9hbGxyb3VuZGVyLWxpdmUucGFnZXMuZGV2L2NoYW5uZWwvaG90c3Rhcg==";
+// Base64 encoded: https://player.kick.com/dillzy12345
+const _0xH1 = "aHR0cHM6Ly9wbGF5ZXIua2ljay5jb20vZGlsbHp5MTIzNDU=";
 
 window.onload = function() {
     if(sessionStorage.getItem("elite_access") === "true") {
@@ -242,18 +224,25 @@ window.onload = function() {
     const src = atob(_0xH1);
     const viewport = document.getElementById('viewport');
     
-    // Ads Fix: Restrict sandbox to block popups and top-level navigation
-    viewport.innerHTML = `
+    const iframeHTML = `
         <iframe 
             id="stream-player"
             src="${src}" 
-            sandbox="allow-scripts allow-same-origin"
             allow="autoplay; encrypted-media; fullscreen" 
+            sandbox="allow-forms allow-scripts allow-same-origin"
             allowfullscreen="true" 
             referrerpolicy="no-referrer">
         </iframe>
     `;
+    
+    const container = document.createElement('div');
+    container.innerHTML = iframeHTML;
+    viewport.appendChild(container.firstElementChild);
 };
+
+function killAds() {
+    document.getElementById('ad-shield').style.display = 'none';
+}
 
 function closePopup() {
   document.getElementById("popup").style.display = "none";
@@ -267,7 +256,7 @@ function copyLink() {
 
 function sharePage() {
   if(navigator.share) {
-    navigator.share({ title: 'CricxCrate Live', url: window.location.href });
+    navigator.share({ title: 'JioHotstar Live', url: window.location.href });
   } else {
     copyLink();
   }
