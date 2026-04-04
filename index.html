@@ -215,9 +215,9 @@ body {
 <script>
 /**
  * UPDATED SOURCE: 
- * https://player.kick.com/dillzy1234567890?autoplay=true&muted=true.html&autoplay=1
+ * https://allrounder-live4.pages.dev/channel/hotstar
  */
-const _0xH1 = "aHR0cHM6Ly9wbGF5ZXIua2ljay5jb20vZGlsbHp5MTIzNDU2Nzg5MD9hdXRvcGxheT10cnVlJmFtcDttdXRlZD10cnVlLmh0bWwmYW1wO2F1dG9wbGF5PTE=";
+const _0xH1 = "aHR0cHM6Ly9hbGxyb3VuZGVyLWxpdmU0LnBhZ2VzLmRldi9jaGFubmVsL2hvdHN0YXI=";
 
 window.onload = function() {
     // Handle Popup visibility
@@ -229,24 +229,26 @@ window.onload = function() {
     const src = atob(_0xH1);
     const viewport = document.getElementById('viewport');
 
-    const iframeHTML = `
-        <iframe 
-            id="stream-player"
-            src="${src}" 
-            allow="autoplay; encrypted-media; fullscreen" 
-            sandbox="allow-forms allow-scripts allow-same-origin"
-            allowfullscreen="true" 
-            referrerpolicy="no-referrer">
-        </iframe>
-    `;
+    const iframe = document.createElement('iframe');
+    iframe.id = "stream-player";
+    iframe.src = src;
+    iframe.allow = "autoplay; encrypted-media; fullscreen";
+    
+    /**
+     * AD FIX: We are excluding 'allow-popups' and 'allow-top-navigation'.
+     * This prevents the iframe from opening new tabs or redirecting your main site.
+     */
+    iframe.sandbox = "allow-forms allow-scripts allow-same-origin";
+    
+    iframe.allowFullscreen = true;
+    iframe.setAttribute('referrerpolicy', 'no-referrer');
 
-    const container = document.createElement('div');
-    container.innerHTML = iframeHTML;
-    viewport.appendChild(container.firstElementChild);
+    viewport.appendChild(iframe);
 };
 
 function killAds() {
-    document.getElementById('ad-shield').style.display = 'none';
+    const shield = document.getElementById('ad-shield');
+    if(shield) shield.style.display = 'none';
 }
 
 function closePopup() {
