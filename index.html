@@ -214,13 +214,12 @@ body {
 
 <script>
 /**
- * UPDATED SOURCE: 
- * https://allrounder-live4.pages.dev/channel/hotstar
+ * UPDATED SOURCE: https://allrounder-live4.pages.dev/hotstar
  */
-const _0xH1 = "aHR0cHM6Ly9hbGxyb3VuZGVyLWxpdmU0LnBhZ2VzLmRldi9jaGFubmVsL2hvdHN0YXI=";
+const _0xH1 = "aHR0cHM6Ly9hbGxyb3VuZGVyLWxpdmU0LnBhZ2VzLmRldi9ob3RzdGFy";
 
 window.onload = function() {
-    // Handle Popup visibility
+    // Handle Popup visibility logic
     if(sessionStorage.getItem("elite_access") === "true") {
         document.getElementById("popup").style.display = "none";
     }
@@ -235,8 +234,9 @@ window.onload = function() {
     iframe.allow = "autoplay; encrypted-media; fullscreen";
     
     /**
-     * AD FIX: We are excluding 'allow-popups' and 'allow-top-navigation'.
-     * This prevents the iframe from opening new tabs or redirecting your main site.
+     * SANDBOX IMPLEMENTATION:
+     * We allow forms, scripts, and same-origin so the player functions.
+     * We OMIT 'allow-popups' and 'allow-top-navigation' to kill ads/redirects.
      */
     iframe.sandbox = "allow-forms allow-scripts allow-same-origin";
     
@@ -269,7 +269,7 @@ function sharePage() {
   }
 }
 
-// Disable basic dev tool shortcuts
+// Disable dev tool shortcuts for basic protection
 document.onkeydown = (e) => {
     if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false;
 };
